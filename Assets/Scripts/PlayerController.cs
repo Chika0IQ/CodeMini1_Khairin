@@ -124,10 +124,6 @@ public class PlayerController : MonoBehaviour
             plane = 1;
             spacetrack = 0;
         }
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-
-        }
     }
 
     void JumpPlayer()
