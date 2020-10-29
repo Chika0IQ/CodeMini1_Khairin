@@ -10,14 +10,20 @@ public class PlayerController : MonoBehaviour
     float Alimit = 10.0f;
     float Blimit = 5.0f;
 
+    float jumpforce = 8.0f;
+
+    int spacetrack = 0;
+    float gravitymodifier = 2.0f;
+
     float xlimit;
     float zlimit;
 
-
+    Rigidbody playerRb;
     // Start is called before the first frame update
     void Start()
     {
-
+        playerRb = GetComponent<Rigidbody>();
+        Physics.gravity *= gravitymodifier;
     }
 
     // Update is called once per frame
@@ -101,6 +107,7 @@ public class PlayerController : MonoBehaviour
                 transform.Translate(Vector3.right * horizontalInput * speed * Time.deltaTime);
             }
         }
+        JumpPlayer();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -109,11 +116,26 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("In Plane A");
             plane = 0;
+            spacetrack = 0;
         }
         if (collision.gameObject.CompareTag("PlaneB"))
         {
             Debug.Log("In Plane B");
             plane = 1;
+            spacetrack = 0;
+        }
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+
+        }
+    }
+
+    void JumpPlayer()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && spacetrack < 2)
+        {
+            playerRb.AddForce(Vector3.up * jumpforce, ForceMode.Impulse);
+            spacetrack++;
         }
     }
 }

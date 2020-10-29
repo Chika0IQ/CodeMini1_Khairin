@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlaneB
   - PlaneA
+  - Wall
   layers:
   - Default
   - TransparentFX
